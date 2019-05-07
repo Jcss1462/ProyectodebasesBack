@@ -5,10 +5,7 @@ const varArtista = require('../controllers/artistas.js');
 const varCanciones = require('../controllers/canciones.js');
 
 router.route('/artistas')
-    .get(varArtista.get)
-   // .post(varArtista.post)
-   // .put(varArtista.put)
-    .delete(varArtista.delete);
+    .get(varArtista.get);
 
 router.route('/canciones')
     .get(varCanciones.get);
