@@ -6,8 +6,9 @@ async function get(req, res, next) {
     const context = {};
 
     //le doy un id al contexto segun lo que viene en el req
-    context.id = req.params.id;
+    context.id = req.query.id;
 
+   
     ///retricciones
     context.skip = parseInt(req.query.skip, 10);
     context.limit = parseInt(req.query.limit, 10);
@@ -17,15 +18,14 @@ async function get(req, res, next) {
 
 
     ///////filtrado
-    context.genero = parseInt(req.query.genero, 10);
+    context.genero =req.query.genero;
     
-
-
 
     //busca lo enviado
     const rows = await artistas.find(context);
 
     console.log(rows.length);
+    
 
     if (req.params.id) {
       if (rows.length === 1) {

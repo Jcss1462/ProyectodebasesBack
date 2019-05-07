@@ -6,9 +6,8 @@ const baseQuery =
   `select CODIGO_ARTISTA "id",
     NOMBRE "nombre",
     GENERO "genero",
-    BIOGRAFIA "biografia"
-  from ARTISTAS
-  where 1 = 1`;
+    dbms_lob.substr( BIOGRAFIA, 4000, 1 )"biografia"
+  from ARTISTAS`;
 
 
 //par filtrado
@@ -19,19 +18,30 @@ async function find(context) {
   let query = baseQuery;
   const binds = {};
 
-  console.log(context.id);
+
   if (context.id) {
     //coloco el id del contexto en el bind
     binds.CODIGO_ARTISTA = context.id;
 
     query += `\nwhere CODIGO_ARTISTA = :CODIGO_ARTISTA`;
+
+    if (context.genero) {
+      binds.genero = context.genero;
+
+      query += '\nand GENERO = :GENERO';
+    }
+
   }
 
-  if (context.genero) {
+  if (context.genero && !context.id) {
     binds.genero = context.genero;
- 
-    query += '\nand genero = :genero';
+
+    query += '\nwhere GENERO = :GENERO';
   }
+
+
+  console.log(query);
+
 
   /////////////////////////////////////////clasificacion
 
@@ -40,19 +50,19 @@ async function find(context) {
     query += '\norder by GENERO asc';
   } else {
     let [column, order] = context.sort.split(':');
- 
+
     if (!sortableColumns.includes(column)) {
       throw new Error('Invalid "sort" column');
     }
- 
+
     if (order === undefined) {
       order = 'asc';
     }
- 
+
     if (order !== 'asc' && order !== 'desc') {
       throw new Error('Invalid "sort" order');
     }
- 
+
     query += `\norder by "${column}" ${order}`;
   }
 

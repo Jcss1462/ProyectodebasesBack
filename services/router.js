@@ -4,13 +4,13 @@ const router = new express.Router();
 const varArtista = require('../controllers/artistas.js');
 const varCanciones = require('../controllers/canciones.js');
 
-router.route('/artistas/:id?')
+router.route('/artistas')
     .get(varArtista.get)
    // .post(varArtista.post)
    // .put(varArtista.put)
     .delete(varArtista.delete);
 
-router.route('/canciones/:id?')
+router.route('/canciones')
     .get(varCanciones.get);
 
 
