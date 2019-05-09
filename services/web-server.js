@@ -19,6 +19,9 @@ function initialize() {
         // Combines logging info from request and response// actualiza cada vez que actualizo la pagina
         app.use(morgan('combined'));
 
+        //permisos
+        app.use(enableCORS);
+
 
         // Parse incoming JSON requests and revive JSON.
         app.use(express.json({
@@ -71,4 +74,11 @@ function reviveJson(key, value) {
   } else {
     return value;
   }
+}
+
+function enableCORS(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
 }

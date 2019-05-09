@@ -1,4 +1,4 @@
-const artistas = require('../db_apis/canciones_artistas');
+const albumes = require('../db_apis/albumes_artistas');
 
 //funcion get de la tabla artistas
 async function get(req, res, next) {
@@ -13,9 +13,10 @@ async function get(req, res, next) {
     context.skip = parseInt(req.query.skip, 10);
     context.limit = parseInt(req.query.limit, 10);
 
-  
+    
+
     //busca lo enviado
-    const rows = await artistas.find(context);
+    const rows = await albumes.find(context);
 
     console.log(rows.length);
     

@@ -4,6 +4,7 @@ const router = new express.Router();
 const varArtista = require('../controllers/artistas.js');
 const varCanciones = require('../controllers/canciones.js');
 const varCancionesArtistas = require('../controllers/canciones_artistas');
+const varAlbumesArtistas = require('../controllers/albumes_artistas');
 
 router.route('/artistas')
     .get(varArtista.get);
@@ -13,5 +14,8 @@ router.route('/canciones')
 
 router.route('/cancionesartistas')
     .get(varCancionesArtistas.get);
+
+router.route('/albumesartistas')
+    .get(varAlbumesArtistas.get);
 
 module.exports = router;

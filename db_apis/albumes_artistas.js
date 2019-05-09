@@ -3,11 +3,10 @@ const database = require('../services/database.js');
 const oracledb = require('oracledb');
 
 const baseQuery =
-  `select CODIGO_CANCION "cancion_id",
-    TITULO "titulo"
-   from Artistas natural join CANCIONES_ARTISTAS natural join CANCIONES`;
+  `select DISTINCT(CODIGO_ALBUM) "album_id",
+    NOMBRE_ALBUM "nombre_album"  
+   from Artistas natural join CANCIONES_ARTISTAS natural join CANCIONES natural join ALBUMES_CANCIONES natural join albumes`;
 
-//par filtrado
 
 async function find(context) {
   //console.log(488888);
@@ -21,7 +20,6 @@ async function find(context) {
 
     query += `\nwhere CODIGO_ARTISTA = :CODIGO_ARTISTA`;
   }
-
 
   console.log(query);
 
