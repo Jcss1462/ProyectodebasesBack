@@ -8,6 +8,8 @@ async function get(req, res, next) {
     //le doy un id al contexto segun lo que viene en el req
     context.artid = req.query.artid;
 
+    context.genero = req.query.genero;
+
    
     ///retricciones
     context.skip = parseInt(req.query.skip, 10);

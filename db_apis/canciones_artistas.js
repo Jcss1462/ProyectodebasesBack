@@ -23,6 +23,14 @@ async function find(context) {
   }
 
 
+  if (context.genero&&!context.artid) {
+    //coloco el id del contexto en el bind
+    binds.GENERO = context.genero;
+
+    query += `\nwhere GENERO = :GENERO`;
+  }
+
+
   console.log(query);
 
 
