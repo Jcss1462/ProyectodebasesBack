@@ -2,10 +2,13 @@ const database = require('../services/database.js');
  
 const baseQuery = 
  `select CODIGO_CANCION "id",
-    TITULO "titulo"
+    TITULO "titulo",
+    dbms_lob.substr( LETRA, 4000, 1 )"letra"
   from CANCIONES`;
  
 async function find(context) {
+
+  console.log(context);
   let query = baseQuery;
   const binds = {};
  
