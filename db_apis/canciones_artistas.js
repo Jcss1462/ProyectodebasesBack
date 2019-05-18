@@ -31,7 +31,7 @@ async function find(context) {
   }
 
 
-  console.log(query);
+ // console.log(query);
 
 
 
@@ -54,7 +54,7 @@ async function find(context) {
 
   const result = await database.simpleExecute(query, binds);
 
-  console.log(result);
+  //console.log(result);
   return result.rows;
 }
 

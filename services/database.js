@@ -1,6 +1,10 @@
 const oracledb = require('oracledb');
 const dbConfig = require('../config/database.js');
 
+
+// force all CLOBs to be returned as Strings
+oracledb.fetchAsString = [ oracledb.CLOB ];
+
 //inicializo la base de datos
 async function initialize() {
     const pool = await oracledb.createPool(dbConfig.proyecto);
