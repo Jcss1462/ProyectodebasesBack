@@ -3,9 +3,9 @@ const database = require('../services/database.js');
 const oracledb = require('oracledb');
 
 const baseQuery =
-  `select DISTINCT(CODIGO_ALBUM) "album_id",
+  `select CODIGO_ALBUM "id",
     NOMBRE_ALBUM "nombre_album"  
-   from Artistas natural join CANCIONES_ARTISTAS natural join CANCIONES natural join ALBUMES_CANCIONES natural join albumes`;
+   from albumes`;
 
 
 async function find(context) {
@@ -13,12 +13,13 @@ async function find(context) {
   let query = baseQuery;
   const binds = {};
 
+  console.log("prueba de llegada2= "+context.albid);
 
-  if (context.artid) {
+  if (context.albid) {
     //coloco el id del contexto en el bind
-    binds.CODIGO_ARTISTA = context.artid;
+    binds.CODIGO_ALBUM = context.albid;
 
-    query += `\nwhere CODIGO_ARTISTA = :CODIGO_ARTISTA`;
+    query += `\nwhere CODIGO_ALBUM = :CODIGO_ALBUM`;
   }
 
   console.log(query);
@@ -46,7 +47,7 @@ async function find(context) {
 
   let cantidad=result.rows.length;
   for(let idx=0;idx<cantidad;idx++){
-    let cod=result.rows[idx].album_id;
+    let cod=result.rows[idx].id;
     result.rows[idx].imagen_album=await findImage(cod);
   }
   console.log(result);
