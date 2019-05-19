@@ -101,6 +101,11 @@ async function find(context) {
   return result.rows;
 }
 
+
+
+module.exports.find = find;
+
+
 const selectImageBase64Sql =
     `BEGIN :imgBase64 := base64encode_Artist(:cod); END;`;
 
@@ -112,6 +117,3 @@ console.log('Query image start');
     const result = await database.simpleExecute(selectImageBase64Sql, binds);
     return result.outBinds;
 }
-
-module.exports.find = find;
-
