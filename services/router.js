@@ -7,6 +7,7 @@ const varAlbumes = require('../controllers/albumes');
 const varCancionesArtistas = require('../controllers/canciones_artistas');
 const varAlbumesArtistas = require('../controllers/albumes_artistas');
 const varCancionesAlbum = require('../controllers/canciones_album');
+const varImagenesArtista = require('../controllers/imagenes_artistas');
 
 const varBusquedaArtista = require('../controllers/busqueda_artistas');
 const varBusquedaCancion = require('../controllers/busqueda_canciones');
@@ -39,6 +40,9 @@ router.route('/busquedacancion')
 
 router.route('/busquedaletra')
     .get(varBusquedaLetra.get);
+
+router.route('/imagenartista')
+    .get(varImagenesArtista.get);
 
 
 module.exports = router;
