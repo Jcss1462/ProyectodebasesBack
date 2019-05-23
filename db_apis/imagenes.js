@@ -79,9 +79,9 @@ async function findImage(id, context) {
     verb = verb + "null'); END;";
   } else {
 
-    if ((context.sx || context.sy) && (!context.col||!context.cali)) {
+    if ((context.sx || context.sy) && !context.col&&!context.cali) {
       verb = verb + "maxscale=" + context.sx + " " + context.sy + "'); END;";
-    } else if(context.sx &&context.sy && context.col){
+    } else if((context.sx &&context.sy) && (context.col||context.cali)){
       verb = verb + "maxscale=" + context.sx + " " + context.sy;
     }
 
