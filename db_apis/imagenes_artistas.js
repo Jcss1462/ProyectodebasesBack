@@ -70,7 +70,7 @@ module.exports.find = find;
 
 
 const selectImageBase64Sql =
-    `BEGIN :imgBase64 := base64encode_Imagenes(:cod,'null'); END;`;
+    `BEGIN :imgBase64 := base64encode_Imagenes(:cod,'null','null'); END;`;
 
 async function findImage(id) {
 console.log('Query image start');

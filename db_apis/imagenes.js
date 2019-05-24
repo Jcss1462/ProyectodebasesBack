@@ -76,24 +76,27 @@ async function findImage(id, context) {
   let verb = selectImageBase64Sql;
 
   if (!context.sx && !context.sy && !context.col&&!context.cali) {
-    verb = verb + "null'); END;";
+    verb = verb + "null'";
   } else {
 
     if ((context.sx || context.sy) && !context.col&&!context.cali) {
-      verb = verb + "maxscale=" + context.sx + " " + context.sy + "'); END;";
+      verb = verb + "maxscale=" + context.sx + " " + context.sy + "'";
     } else if((context.sx &&context.sy) && (context.col||context.cali)){
       verb = verb + "maxscale=" + context.sx + " " + context.sy;
     }
 
     if (context.col&&!context.cali) {
       if (context.col == "rojo") {
-        verb = verb + ' gamma="2.5""0.1""0.1"' + "'); END;";
+        verb = verb + ' gamma="2.5""0.1""0.1"' + "'";
       }
       if (context.col == "azul") {
-        verb = verb + ' gamma="0.1""0.1""2.5"' + "'); END;";
+        verb = verb + ' gamma="0.1""0.1""2.5"' + "'";
       }
       if (context.col == "verde") {
-        verb = verb + ' gamma="0.1""2.5""0.1"' + "'); END;";
+        verb = verb + ' gamma="0.1""2.5""0.1"' + "'";
+      }
+      if (context.col == "monocromatico") {
+        verb = verb + ' contentformat=8bitgray' + "'";
       }
     }else if(context.col&&context.cali){
 
@@ -107,24 +110,31 @@ async function findImage(id, context) {
       if (context.col == "verde") {
         verb = verb + ' gamma="0.1""2.5""0.1"';
       }
+      if (context.col == "monocromatico") {
+        verb = verb + ' contentformat=8bitgray';
+      }
     }
 
     if(context.cali){
 
       if (context.cali == "media") {
-        verb = verb + ' compressionQuality=MEDCOMP'+ "'); END;";;
-      }
-      if (context.cali == "alta") {
-        verb = verb + ' compressionQuality=MAXCOMPRATIO'+ "'); END;";;
+        verb = verb + ' compressionQuality=MEDCOMP'+ "'";
       }
       if (context.cali == "baja") {
-        verb = verb + ' compressionQuality=LOWCOMP'+ "'); END;";;
+        verb = verb + ' compressionQuality=MAXCOMPRATIO'+ "'";
+      }
+      if (context.cali == "alta") {
+        verb = verb + ' compressionQuality=LOWCOMP'+ "'";
       }
 
     }
+  }
 
+  if(context.filename){
+    verb=verb+",'"+context.filename+"'); END;";
+  }else{
 
-
+    verb=verb+",'null'"+"); END;";
   }
 
 

@@ -23,6 +23,12 @@ async function get(req, res, next) {
     }
 
 
+    if(req.query.filename){
+      console.log(54444444444444444444444444444);
+      context.filename=req.query.filename;
+    }
+
+
     ///retricciones
     context.skip = parseInt(req.query.skip, 10);
     context.limit = parseInt(req.query.limit, 10);
