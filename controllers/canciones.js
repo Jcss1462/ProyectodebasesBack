@@ -4,9 +4,11 @@ async function get(req, res, next) {
   try {
     const context = {};
  
-    context.id = parseInt(req.query.id, 10);
+    context.id = req.query.id;
 
-   
+    if(req.query.filename){
+      context.filename=req.query.filename;
+    }
  
     const rows = await canciones.find(context);
  
