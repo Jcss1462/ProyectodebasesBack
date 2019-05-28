@@ -66,19 +66,23 @@ console.log('Query image start');
 }
 
 const DownloadSong =
-    `BEGIN :num := Descargar_song(:cod,:filename); END;`;
+    `BEGIN :num := Descargar_song2(:cod,:filename); END;`;
 
 async function descargarCancion(id,filename) {
     
   console.log('Query image start');
 
     const binds = {};
+
     binds.cod = id;
     binds.filename = filename;
-  
+    binds.num = { dir: oracledb.BIND_OUT, type: oracledb.NUMBER, maxSize: 500000 };
     console.log('id= '+id);
+    console.log('filename= '+filename);
     console.log(DownloadSong);
-    binds.info = { dir: oracledb.BIND_OUT, type: oracledb.STRING, maxSize: 500000 };
+    
     const result = await database.simpleExecute(DownloadSong, binds);
+    console.log('Hecho');
+    
     return result.outBinds;
 }
